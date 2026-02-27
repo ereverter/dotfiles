@@ -1,0 +1,15 @@
+# Example SSH config - copy to ~/.ssh/config and adjust values
+Host pi
+    HostName 192.168.x.x
+    User user
+    Port 22
+
+Host pit
+    HostName 100.x.x.x
+    User user
+    Port 22
+
+Host acamini
+    HostName 10.x.x.x
+    User macmini
+    Port 22

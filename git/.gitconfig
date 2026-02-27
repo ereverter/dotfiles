@@ -1,0 +1,25 @@
+[user]
+	name = ereverter
+	email = 38497803+ereverter@users.noreply.github.com
+	useConfigOnly = true
+[credential]
+	helper = store
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = nvim
+[diff]
+	algorithm = histogram
+[init]
+	defaultBranch = main
+
+# Override for work projects - create ~/.gitconfig-work with:
+#   [user]
+#       email = you@company.com
+[includeIf "gitdir:~/work/"]
+	path = ~/.gitconfig-work
