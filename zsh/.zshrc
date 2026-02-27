@@ -89,3 +89,6 @@ update() {
   nvim --headless "+Lazy! sync" +qa 2>/dev/null
   echo "Done."
 }
+
+# Local overrides (tokens, machine-specific config)
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
