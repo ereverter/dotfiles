@@ -68,5 +68,14 @@ EOF
   warn "Edit ~/.gitconfig-work with your work email"
 fi
 
+# macOS defaults
+if [[ "$OSTYPE" == darwin* ]]; then
+  read -p "Apply macOS defaults? [y/N] " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    "$DOTFILES/macos.sh"
+  fi
+fi
+
 echo ""
-ok "Dotfiles installed. Restart your shell or run: source ~/.zshrc"
+ok "Done. Restart your shell or run: source ~/.zshrc"

@@ -82,3 +82,10 @@ alias claude='nocorrect claude'
 alias cc='clear'
 alias v='nvim'
 alias vim='nvim'
+
+# Update everything
+update() {
+  brew update && brew upgrade && brew cleanup
+  nvim --headless "+Lazy! sync" +qa 2>/dev/null
+  echo "Done."
+}
