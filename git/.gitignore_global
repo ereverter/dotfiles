@@ -12,6 +12,3 @@ Thumbs.db
 # Claude
 .claude/
 .claude
-
-# Project-specific
-docs/label-studio.md
