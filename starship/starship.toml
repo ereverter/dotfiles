@@ -6,6 +6,7 @@ $python\
 $golang\
 $nodejs\
 $docker_context\
+$line_break\
 $character"""
 
 [directory]
