@@ -22,4 +22,15 @@ return {
       current_line_blame_opts = { delay = 500 },
     },
   },
+
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff view" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Repo history" },
+    },
+    opts = {},
+  },
 }

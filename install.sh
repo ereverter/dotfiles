@@ -25,7 +25,7 @@ if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 info "Installing Homebrew packages..."
-brew bundle --file="$DOTFILES/Brewfile" --no-lock
+brew bundle --file="$DOTFILES/Brewfile"
 
 # Shell
 link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
