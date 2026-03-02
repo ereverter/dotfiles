@@ -8,7 +8,6 @@ return {
         "shfmt",
         "gopls",
         "goimports",
-        "golangci-lint",
         "ruff",
         "basedpyright",
         "typescript-language-server",
@@ -46,7 +45,6 @@ return {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
-        go = { "golangcilint" },
         sh = { "shellcheck" },
       },
     },
