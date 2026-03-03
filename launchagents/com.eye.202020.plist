@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.eye.202020</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>osascript -e 'display dialog "Look 6m away for 20 seconds" with title "20-20-20" giving up after 20'</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>1200</integer>
+</dict>
+</plist>

@@ -63,6 +63,13 @@ link "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.jso
 mkdir -p "$HOME/.config/gh"
 link "$DOTFILES/gh/config.yml" "$HOME/.config/gh/config.yml"
 
+# Launch Agents
+mkdir -p "$HOME/Library/LaunchAgents"
+for plist in "$DOTFILES"/launchagents/*.plist; do
+  [ -f "$plist" ] || continue
+  link "$plist" "$HOME/Library/LaunchAgents/$(basename "$plist")"
+done
+
 # SSH
 if [ ! -f "$HOME/.ssh/config" ]; then
   warn "No SSH config found. See ssh/config.example for reference."
