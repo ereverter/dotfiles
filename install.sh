@@ -37,6 +37,12 @@ link "$DOTFILES/git/.gitignore_global" "$HOME/.gitignore_global"
 
 # Tmux
 link "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
+CATPPUCCIN_TMUX="$HOME/.config/tmux/plugins/catppuccin/tmux"
+if [ ! -d "$CATPPUCCIN_TMUX" ]; then
+  info "Installing catppuccin/tmux..."
+  mkdir -p "$(dirname "$CATPPUCCIN_TMUX")"
+  git clone -b v2.1.3 https://github.com/catppuccin/tmux.git "$CATPPUCCIN_TMUX"
+fi
 
 # Neovim
 mkdir -p "$HOME/.config"
@@ -44,6 +50,10 @@ link "$DOTFILES/nvim" "$HOME/.config/nvim"
 
 # Starship
 link "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
+
+# Kitty
+mkdir -p "$HOME/.config/kitty"
+link "$DOTFILES/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 
 # Karabiner
 mkdir -p "$HOME/.config/karabiner"
