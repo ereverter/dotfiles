@@ -61,6 +61,7 @@ return {
     opts = {
       linters_by_ft = {
         go = {},
+        markdown = {},
         sh = { "shellcheck" },
       },
     },
