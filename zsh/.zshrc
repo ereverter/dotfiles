@@ -19,7 +19,15 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # Environment
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
-HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix)}"
+if command -v brew >/dev/null 2>&1; then
+  HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix)}"
+elif [ -x /opt/homebrew/bin/brew ]; then
+  HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
+elif [ -x /usr/local/bin/brew ]; then
+  HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-/usr/local}"
+else
+  HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-}"
+fi
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -29,7 +37,7 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 
 # Lazy-load NVM
 lazy_nvm() {
-  unset -f nvm node npm npx codex 2>/dev/null
+  unset -f nvm node npm npx codex gws 2>/dev/null
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -39,16 +47,17 @@ node() { lazy_nvm; node "$@"; }
 npm() { lazy_nvm; npm "$@"; }
 npx() { lazy_nvm; npx "$@"; }
 codex() { lazy_nvm; codex "$@"; }
+gws() { lazy_nvm; gws "$@"; }
 
 # Completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Plugins
-source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[ -n "$HOMEBREW_PREFIX" ] && [ -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[ -n "$HOMEBREW_PREFIX" ] && [ -r "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Prompt
-eval "$(starship init zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 # Git aliases
 alias gs='git status'
@@ -85,9 +94,19 @@ alias vim='nvim'
 
 # Update everything
 update() {
-  brew update && brew upgrade && brew cleanup
-  nvim --headless "+Lazy! sync" +qa 2>/dev/null
-  echo "Done."
+  command -v brew >/dev/null 2>&1 || {
+    echo "brew not found"
+    return 1
+  }
+  command -v nvim >/dev/null 2>&1 || {
+    echo "nvim not found"
+    return 1
+  }
+  brew update && brew upgrade && brew cleanup &&
+    nvim --headless "+Lazy! sync" +qa 2>/dev/null
+  local status=$?
+  [ $status -eq 0 ] && echo "Done."
+  return $status
 }
 
 # Local overrides (tokens, machine-specific config)

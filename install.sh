@@ -24,8 +24,12 @@ if ! command -v brew &>/dev/null; then
   info "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-info "Installing Homebrew packages..."
-brew bundle --file="$DOTFILES/Brewfile"
+if ! command -v brew &>/dev/null; then
+  warn "Homebrew is still not available on PATH. Continuing without brew bundle."
+else
+  info "Installing Homebrew packages..."
+  brew bundle --file="$DOTFILES/Brewfile"
+fi
 
 # Shell
 link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
@@ -54,6 +58,8 @@ link "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
 # Kitty
 mkdir -p "$HOME/.config/kitty"
 link "$DOTFILES/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
+link "$DOTFILES/kitty/font-size.conf" "$HOME/.config/kitty/font-size.conf"
+link "$DOTFILES/kitty/adjust-font-size.sh" "$HOME/.config/kitty/adjust-font-size.sh"
 
 # Karabiner
 mkdir -p "$HOME/.config/karabiner"
